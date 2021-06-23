@@ -5,20 +5,30 @@
     <div class="col">
 
 
-        <form (ngSubmit)="guardar( miFormulario )" #miFormulario="ngForm" autocomplete="off">
+        <form (ngSubmit)="guardar()" #miFormulario="ngForm" autocomplete="off">
 
             <!-- Campo nombre producto-->
             <div class="mb-3 row">
+
                 <label class="col-sm-3 col-form-label">Producto</label>
+
                 <div class="col-sm-9">
+
                     <input 
                     type="text"
                     class="form-control"
                     placeholder="Nombre del producto"
                     ngModel
                     name="producto"
-                    required>
-                    <span class="form-text text-danger">Debe de ser de 3 letras</span>
+                    required
+                    minlength="3">
+
+                    <span 
+                    class="form-text text-danger"
+                    *ngIf="nombreValido()">
+                    Debe de ser de 3 letras
+                </span>
+
                 </div>
             </div>
 
@@ -32,8 +42,15 @@
                     placeholder="Precio del producto"
                     ngModel
                     name="precios"
-                    required>
+                    required
+                    min="0">
                 </div>
+
+                <span 
+                    class="form-text text-danger"
+                    *ngIf="precioValido()">
+                    El precio debe ser 0 o mayor
+                </span>
             </div>
 
             <!-- Campo existencias del producto-->
@@ -42,10 +59,13 @@
                 <div class="col-sm-9">
                     <input 
                     type="number"
-                    class="form-control"
-                    placeholder="Existencias del producto"
+                    class="form-control"                    
                     ngModel
-                    name="existencias">
+                    name="existencias"
+                    customMin
+                    [minimo]="0"
+                    placeholder="Existencias del producto"
+                    required>
                 </div>
             </div>
 
@@ -53,11 +73,31 @@
                 <div class="col">
                     <button
                     type="submit"
+                    [disabled]="miFormulario.invalid"
                     class="btn btn-primary float-end">Guardar</button>
                 </div>
             </div>
         </form>
 
 
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <span>Valid</span>
+        <pre> {{miFormulario.valid}} </pre>
+
+        <span>Pristine</span>
+        <pre> {{miFormulario.pristine}} </pre>
+
+        <span>Touched</span>
+        <pre> {{miFormulario.touched}} </pre>
+
+        <span>Value</span>
+        <pre> {{miFormulario.value | json }} </pre>
+
+        <span>Directiva Personalizada</span>
+        <pre> {{miFormulario.controls.existencias?.errors | json }} </pre>
     </div>
 </div>
