@@ -36,11 +36,14 @@ autocomplete="off">
                 <input 
                 type="text"
                 class="form-control"
-                placeholder="Agregar favorito">
+                placeholder="Agregar favorito"
+                [formControl]="nuevoFavorito"
+                (keyup.enter)="guardarFavorito()">
 
                 <button 
                 class="btn btn-outline-primary" 
-                type="button">
+                type="button"
+                (click)="guardarFavorito()">
                     Agregar
                 </button>
 
@@ -53,18 +56,21 @@ autocomplete="off">
     <div class="mb-3 row">
         <label class="col-3 col-form-label">Favoritos</label>
 
-        <div class="col-sm-9">
+        <div class="col-sm-9" formArrayName="favoritos">
 
-            <!-- <div class="input-group mb-1" *ngFor="let juego of persona.favoritos; let i = index">
+            <div 
+            *ngFor="let favorito of favoritosArray.controls; let i = index"
+            class="input-group mb-1">
 
                 <input                 
                 type="text" 
-                class="form-control">
+                class="form-control"
+                [formControlName]="i">
 
-                <button class="btn btn-outline-danger" type="button" (click)="eliminar( i )">
+                <button class="btn btn-outline-danger" type="button">
                     Eliminar
                 </button>
-            </div> -->
+            </div>
                 
         </div>
     </div>
@@ -85,17 +91,17 @@ autocomplete="off">
         <span>Valid</span>
         <pre> {{formularioDinamico.valid}} </pre>
 
-        <span>Pristine</span>
-        <pre> {{formularioDinamico.pristine}} </pre>
-
-        <span>Touched</span>
-        <pre> {{formularioDinamico.touched}} </pre>
-
         <span>Value</span>
         <pre> {{formularioDinamico.value | json }} </pre>
 
         <span>Nombre : errors</span>
         <pre> {{formularioDinamico.controls.nombre.errors | json }} </pre>
+
+        <span>Agregar Juego : valid</span>
+        <pre> {{nuevoFavorito.valid }} </pre>
+
+        <span>Agregar Juego : value</span>
+        <pre> {{nuevoFavorito.value | json }} </pre>
 
     </div>
 </div>
