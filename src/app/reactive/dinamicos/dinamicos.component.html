@@ -1,1 +1,101 @@
-<p>dinamicos works!</p>
+<h2>Reactive: Dinámicos</h2>
+<hr>
+
+<form
+(ngSubmit)="guardar()"
+[formGroup]="formularioDinamico"
+autocomplete="off">
+    
+    <!-- Nombre -->
+    <div class="mb-3 row">
+        <label class="col-3 col-form-label">Nombre</label>
+
+        <div class="col-sm-9">
+            <input 
+            type="text"
+            class="form-control"
+            placeholder="Nombre de la persona"
+            formControlName="nombre">
+
+            <span
+            *ngIf="esValido('nombre')"
+            class="form-text text-danger">
+            Este campo es obligatorio
+            </span>
+
+        </div>        
+    </div>
+
+    <!-- Agregar Favorito -->
+    <div class="mb-3 row">
+        <label class="col-3 col-form-label">Agregar</label>
+
+        <div class="col-sm-9">
+            <div class="input-group">
+
+                <input 
+                type="text"
+                class="form-control"
+                placeholder="Agregar favorito">
+
+                <button 
+                class="btn btn-outline-primary" 
+                type="button">
+                    Agregar
+                </button>
+
+            </div>
+        </div>  
+
+    </div>
+
+    <!-- Lista de Juegos Favoritos -->
+    <div class="mb-3 row">
+        <label class="col-3 col-form-label">Favoritos</label>
+
+        <div class="col-sm-9">
+
+            <!-- <div class="input-group mb-1" *ngFor="let juego of persona.favoritos; let i = index">
+
+                <input                 
+                type="text" 
+                class="form-control">
+
+                <button class="btn btn-outline-danger" type="button" (click)="eliminar( i )">
+                    Eliminar
+                </button>
+            </div> -->
+                
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button 
+            type="submit"
+            class="btn btn-primary float-end">
+                Guardar
+            </button>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col">
+        <span>Valid</span>
+        <pre> {{formularioDinamico.valid}} </pre>
+
+        <span>Pristine</span>
+        <pre> {{formularioDinamico.pristine}} </pre>
+
+        <span>Touched</span>
+        <pre> {{formularioDinamico.touched}} </pre>
+
+        <span>Value</span>
+        <pre> {{formularioDinamico.value | json }} </pre>
+
+        <span>Nombre : errors</span>
+        <pre> {{formularioDinamico.controls.nombre.errors | json }} </pre>
+
+    </div>
+</div>
