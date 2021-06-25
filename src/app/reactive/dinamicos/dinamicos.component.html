@@ -67,7 +67,10 @@ autocomplete="off">
                 class="form-control"
                 [formControlName]="i">
 
-                <button class="btn btn-outline-danger" type="button">
+                <button 
+                class="btn btn-outline-danger" 
+                type="button"
+                (click)="borrarFavorito( i )">
                     Eliminar
                 </button>
             </div>

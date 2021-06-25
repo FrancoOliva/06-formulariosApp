@@ -2,7 +2,7 @@
 <hr>
 
 
-<form>
+<form [formGroup]="formularioSwitches">
 
     <!-- Radio -->
     <div class="row mb-3">
@@ -14,7 +14,7 @@
                 class="form-check-input" 
                 type="radio"
                 value="M"
-                name="radioGenero" 
+                formControlName="genero" 
                 id="radioMasculino">
 
                 <label class="form-check-label" for="radioMasculino">
@@ -27,7 +27,7 @@
                 class="form-check-input" 
                 type="radio"
                 value="F"
-                name="radioGenero" 
+                formControlName="genero" 
                 id="radioFemenino">
 
                 <label class="form-check-label" for="radioFemenino">
@@ -46,7 +46,7 @@
                 <input 
                 class="form-check-input" 
                 type="checkbox" 
-                name="notificaciones"
+                formControlName="notificaciones"
                 id="flexSwitchCheckChecked">
 
                 <label class="form-check-label" for="flexSwitchCheckChecked">
@@ -65,7 +65,7 @@
                 <input 
                 class="form-check-input" 
                 type="checkbox" 
-                name="terminos" 
+                formControlName="terminos" 
                 id="flexCheckDefault"
                 required>
                 <label class="form-check-label" for="flexCheckDefault">
@@ -87,15 +87,15 @@
     
 </form>
 
-<!-- <h5>Valor del formulario</h5>
-<pre> {{miFormularioSwitches.value | json }} </pre>
+<h5>Valor del formulario</h5>
+<pre> {{formularioSwitches.value | json }} </pre>
 
 <h5>Persona</h5>
 <pre> {{ persona | json }} </pre>
 
 <h5>Valid</h5>
-<pre> {{miFormularioSwitches.valid }} </pre>
+<pre> {{formularioSwitches.valid }} </pre>
 
-<h5>Términos</h5>
+<!-- <h5>Términos</h5>
 <pre> {{miFormularioSwitches.controls?.terminos?.errors | json }} </pre> -->
 

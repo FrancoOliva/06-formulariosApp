@@ -60,6 +60,12 @@ export class DinamicosComponent implements OnInit {
     this.nuevoFavorito.reset();
   }
 
+  borrarFavorito( index:number ){
+    console.log(index);
+
+    this.favoritosArray.removeAt(index);
+  }
+
   guardar(){
 
     if( this.formularioDinamico.invalid ){
