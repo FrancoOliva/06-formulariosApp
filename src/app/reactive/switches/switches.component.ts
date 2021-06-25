@@ -32,6 +32,22 @@ export class SwitchesComponent implements OnInit {
       terminos: true
     });
 
+    // Forma 2
+    // Los datos de la persona se actualizan de forma sincrónizada con el formulario
+    // this.formularioSwitches.valueChanges.subscribe( form => {
+    //   delete form.terminos;
+    //   this.persona = form;
+    // });
+
+  }
+
+  guardar(){
+    // Forma 1
+    // Los datos de la persona se actualizan al tocar en GUARDAR
+    const formValue = { ...this.formularioSwitches.value };
+    delete formValue.terminos;
+
+    this.persona = formValue;
   }
 
   
