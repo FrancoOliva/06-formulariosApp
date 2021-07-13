@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+// En vez de tener las validaciones en el mismo archivo registro.ts
+// Podemos tener esas validaciones en otro archivo y exportarlas o, tenerlas en un servicio por si necesitamos utilizarlas en otras partes de la aplicación
+import { emailPattern, nombreApellidoPattern, noPuedeSerStrider } from 'src/app/shared/validator/validaciones';
+
+import { ValidatorService } from '../../../shared/validator/validator.service';
 
 @Component({
   selector: 'app-registro',
@@ -9,33 +15,17 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 })
 export class RegistroComponent implements OnInit {
 
-  // ToDO: temporal
-  nombreApellidoPattern: string = '([a-zA-Z]+) ([a-zA-Z]+)';
-  emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
-
-  noPuedeSerStrider( control: FormControl){
-    const value:string = control.value?.trim().toLowerCase();
-    
-    if(value === 'strider'){
-
-      // Cuando se retorna un obj así, es porque hubo un error
-
-      return {
-        yaExisteElUsuario: true
-      }
-    }
-
-    // Cuando se retorna null en este caso, esta bien, el usuario no existe o en este caso, no es STRIDER
-    return null;
-  }
-
   miFormulario: FormGroup = this.fb.group({
-    nombre: ['', [ Validators.required, Validators.pattern( this.nombreApellidoPattern )] ],
-    email: ['', [ Validators.required, Validators.pattern(this.emailPattern)] ],
-    usuario: ['', [ Validators.required, this.noPuedeSerStrider ]]
+    nombre: ['', [ Validators.required, Validators.pattern( this.validatorService.nombreApellidoPattern )] ],
+    email: ['', [ Validators.required, Validators.pattern( this.validatorService.emailPattern )] ],
+    usuario: ['', [ Validators.required, this.validatorService.noPuedeSerStrider ]],
+    password: ['', [ Validators.required, Validators.minLength(6) ]],
+    password2: ['', [ Validators.required ]]
+  }, {
+    validators: [ this.validatorService.camposIguales('password','password2') ]
   });
 
-  constructor( private fb: FormBuilder ) { }
+  constructor( private fb: FormBuilder, private validatorService: ValidatorService ) { }
 
   ngOnInit(): void {
 
